@@ -39,10 +39,23 @@ const App = () => {
 		},
 		[todos]
 	);
+
+	// todos 배열 객체 수정하기
+	// ...todo => 전체 다 까봐야되니까 ( 데이터가 많으면 성능 저하됨 ) 다른 방법 구상해야됨.
+	const onToggle = useCallback(
+		(id) => {
+			setTodos(
+				todos.map((todo) =>
+					todo.id === id ? { ...todo, checked: !todo.checked } : todo
+				)
+			);
+		},
+		[todos]
+	);
 	return (
 		<TodoTemplate>
 			<TodoInsert onInsert={onInsert} />
-			<TodoList todos={todos} onRemove={onRemove} />
+			<TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
 		</TodoTemplate>
 	);
 };
