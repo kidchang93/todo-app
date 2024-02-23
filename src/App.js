@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import TodoTemplate from "./components/TodoTemplate";
 import TodoInsert from "./components/TodoInsert";
 import TodoList from "./components/TodoList";
@@ -21,10 +21,22 @@ const App = () => {
 			checked: false,
 		},
 	]);
+	// console.log(todos);
+	const nextId = useRef(4); // id 관리용
+	const onInsert = useCallback(
+		(text) => {
+			const nextTodo = { id: nextId.current, text: text, checked: false };
+			setTodos(todos.concat(nextTodo));
+			nextId.current = nextId.current + 1;
+		},
+		[todos]
+	);
+
+	const onRemove = useCallback();
 	return (
 		<TodoTemplate>
-			<TodoInsert />
-			<TodoList todos={todos} />
+			<TodoInsert onInsert={onInsert} />
+			<TodoList todos={todos} onRemove={onRemove} />
 		</TodoTemplate>
 	);
 };

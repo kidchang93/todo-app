@@ -5,12 +5,15 @@ import {
 	MdRemoveCircleOutline,
 } from "react-icons/md";
 import "./TodoListItem.css";
-const TodoListItem = () => {
+const TodoListItem = ({ todo, onRemove }) => {
+	const { text, checked } = todo; //{id: 1,text: "일정1", checked: true,}
+	console.log(todo); // 비할당구조로 다 가져오기 때문에 필요한 정보만 쏙쏙 가져온다.
 	return (
 		<div className="TodoListItem">
-			<div className="checkbox">
-				<MdCheckBoxOutlineBlank />
-				<div className="text">할 일</div>
+			<div className={checked ? "checkbox checked" : "checkbox"}>
+				{checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+
+				<div className="text">{text}</div>
 			</div>
 			<div className="remove">
 				<MdRemoveCircleOutline />
