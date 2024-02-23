@@ -31,8 +31,14 @@ const App = () => {
 		},
 		[todos]
 	);
-
-	const onRemove = useCallback();
+	// TodoListItem remove button click => id
+	const onRemove = useCallback(
+		(id) => {
+			setTodos(todos.filter((todo) => todo.id !== id));
+			console.log(todos);
+		},
+		[todos]
+	);
 	return (
 		<TodoTemplate>
 			<TodoInsert onInsert={onInsert} />
